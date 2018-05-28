@@ -7,13 +7,13 @@ export class StockService {
   	constructor(public logger: LoggerService) { }
 
 	getStock():Stock {
-		this.logger.log("方法被调用");
+		this.logger.log("StockService");
 		return new Stock(1,"IBM");
 	}
 }
 
 export class Stock {
     constructor(public id: number, public name: string){
-
+		
 	}
 }

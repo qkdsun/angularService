@@ -12,9 +12,9 @@ import { Stock2Service } from './share/stock2.service';
 
 @NgModule({
 	declarations: [
-			AppComponent,
-			StockComponent,
-			Stock2Component
+		AppComponent,
+		StockComponent,
+		Stock2Component
 	],
 	imports: [
 		BrowserModule
@@ -24,17 +24,24 @@ import { Stock2Service } from './share/stock2.service';
   // 工厂方法创建出来的对象 是一个单利对象
   providers: [
 
-	{provide:StockService, useFactory: (logger:LoggerService)=> {
+	{provide:StockService, useFactory: (logger:LoggerService,isdev)=> {
+		console.log(isdev)
+
 		let dev = Math.random() > 0.5
-		if(dev){
+		if(isdev){
 			return new StockService(logger)
 		}else{
 			return new Stock2Service(logger)
 		}
-	}, deps: [LoggerService]},
+	}, deps: [LoggerService,"IS_DEV"]},
 
-	LoggerService],
+	LoggerService,
+
+	{provide: "IS_DEV", useValue: false}
+
+],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 
